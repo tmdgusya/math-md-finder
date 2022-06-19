@@ -1,0 +1,19 @@
+complexity:
+  TooManyFunctions:
+    thresholdInClasses: 15
+    excludes: ["**/test/**","**/*.*.kts"]
+    # includes:
+  LargeClass:
+    threshold: 300
+
+  LongParameterList:
+    functionThreshold: 3
+
+  NestedBlockDepth:
+    threshold: 1
+
+
+
+build:
+  maxIssues: 0
+

@@ -1,5 +1,9 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+
 plugins {
     kotlin("jvm") version "1.7.0"
+    id("io.gitlab.arturbosch.detekt").version("1.20.0")
 }
 
 group = "org.roach"
@@ -11,6 +15,29 @@ repositories {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.withType<Detekt>().configureEach {
+    jvmTarget = "1.8"
+}
+tasks.withType<DetektCreateBaselineTask>().configureEach {
+    jvmTarget = "1.8"
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true) // observe findings in your browser with structure and code snippets
+        xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
+        txt.required.set(true)
+        sarif.required.set(true)
+    }
+}
+
+detekt {
+    buildUponDefaultConfig = true // preconfigure defaults
+    allRules = false // activate all available (even unstable) rules.
+    config =
+        files("$projectDir/detekt.yml")
 }
 
 ext {
