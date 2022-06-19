@@ -3,14 +3,18 @@ plugins {
 }
 
 group = "org.roach"
-version = "1.0-SNAPSHOT"
+version = "5.3.1"
 
 repositories {
     mavenCentral()
 }
 
-tasks.test {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+ext {
+    version = "5.3.1"
 }
 
 dependencies {
@@ -18,4 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.kotest:kotest-runner-junit5:$version")
+    testImplementation("io.kotest:kotest-assertions-core:$version")
+    testImplementation("io.kotest:kotest-property:$version")
 }
